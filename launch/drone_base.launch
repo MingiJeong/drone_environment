@@ -1,0 +1,20 @@
+<launch>
+  <arg name="background" default="true" />
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <!-- valley background -->
+  <group if="$(arg background)">
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+      <arg name="world_name" value="$(find drone_environment)/worlds/drone_base.world"/>
+      <!-- more default parameters can be changed here -->
+    </include>
+  </group> 
+  
+  <!-- empty background / water only -->
+  <group unless="$(arg background)">
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+      <arg name="world_name" value="$(find drone_environment)/worlds/water_only.world"/>
+      <!-- more default parameters can be changed here -->
+    </include>
+  </group>
+</launch>

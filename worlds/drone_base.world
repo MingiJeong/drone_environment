@@ -12,19 +12,12 @@
       <uri>model://ocean</uri>
     </include>
 
-    <!-- background: sandi island hawaii -->
-    <!--include>
-      <pose> 0 0 0 0 0 0 </pose>
-      <uri>model://sandisland</uri>
-    </include-->
-
     <!-- background: winding valley heightmap -->
     <model name="terrain">
       <include>
         <uri>model://winding_valley_heightmap</uri>
       </include>
     </model>
-
 
      <physics name='default_physics' default='0' type='ode'>
 <!--       <gravity>0 0 -9.8066</gravity>
