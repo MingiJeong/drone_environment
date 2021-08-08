@@ -2,8 +2,13 @@
 
 This package is a testbed for drone algorithm for shore line and object detection.
 
+## dependency
+* git clone the following repository from the source
+https://github.com/bsb808/usv_gazebo_plugins
+
+
 ## installtion
-* clone this repository into your workspace 
+* clone this (drone_environment) repository into your workspace 
 * run `catkin_make` in your workspace
 * export gazebo model path as per the following command
 ```
