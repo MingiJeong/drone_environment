@@ -29,29 +29,8 @@
     <!-- drone import -->
     <model name="iris">
       <include>
-        <uri>model://iris_with_standoffs</uri>
+        <uri>model://iris</uri>
       </include>
-          <!-- IMU sensor in 100fps -->
-      <sensor name='sensor_imu' type='imu'>
-      <always_on> 1 </always_on>
-      <update_rate> 100 </update_rate>
-      <pose> 0 0 0 0 0 0 </pose>
-      <plugin name='ros_imu' filename='libplugin_ros_imu.so'>
-      </plugin> 
-      <imu>
-        <noise>
-            <type>gaussian</type>
-          <rate>
-            <mean> 0 </mean>
-            <stddev> 0 </stddev>
-          </rate>
-          <accel>
-            <mean> 0 </mean>
-            <stddev> 0.00 </stddev>
-          </accel>
-        </noise>
-      </imu>
-      </sensor>
 
       <!-- add new camera -->
       <link name='camera'>
@@ -123,34 +102,6 @@
 
       </link>
 
-      <plugin name='simple_drone' filename='libplugin_drone.so'>
-          <bodyName>base_link</bodyName>
-          <imuTopic>/drone/imu</imuTopic>
-          <rollpitchProportionalGain>10.0</rollpitchProportionalGain>
-          <rollpitchDifferentialGain>5.0</rollpitchDifferentialGain>
-          <rollpitchLimit>0.5</rollpitchLimit>
-          <yawProportionalGain>2.0</yawProportionalGain>
-          <yawDifferentialGain>1.0</yawDifferentialGain>
-          <yawLimit>1.5</yawLimit>
-          <velocityXYProportionalGain>5.0</velocityXYProportionalGain>
-          <velocityXYDifferentialGain>2.3</velocityXYDifferentialGain>
-          <velocityXYLimit>2</velocityXYLimit>
-          <velocityZProportionalGain>5.0</velocityZProportionalGain>
-          <velocityZDifferentialGain>1.0</velocityZDifferentialGain>
-          <velocityZLimit>-1</velocityZLimit>
-          <positionXYProportionalGain>1.1</positionXYProportionalGain>
-          <positionXYDifferentialGain>0.0</positionXYDifferentialGain>
-          <positionXYIntegralGain>0.0</positionXYIntegralGain>
-          <positionXYLimit>5</positionXYLimit>
-          <positionZProportionalGain>1.0</positionZProportionalGain>
-          <positionZDifferentialGain>0.2</positionZDifferentialGain>
-          <positionZLimit>-1</positionZLimit>
-          <maxForce>30</maxForce>
-          <motionSmallNoise>0.05</motionSmallNoise>
-          <motionDriftNoise>0.03</motionDriftNoise>
-          <motionDriftNoiseTime>5.0</motionDriftNoiseTime>
-      </plugin>
-
       <!-- attach camera -->
       <joint type="revolute" name="base_camera_joint">
         <pose>0 0 0.0 0 0 0</pose>
@@ -168,72 +119,6 @@
     </model>
 
 
-
-    <model name="irlock_beacon_01">
-      <pose>1.0 -1.0 0.005 0 0 0</pose>
-      <link name="link">
-         <inertial>
-          <pose>0 0 0 0 0 0</pose>
-          <mass>3.0</mass>
-          <inertia>
-            <ixx>0.019</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>0.01</iyy>
-            <iyz>0</iyz>
-            <izz>0.01</izz>
-          </inertia>
-        </inertial>
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>1.0 1.0 0.02</size>
-            </box>
-          </geometry>
-          <surface>
-            <friction>
-              <ode>
-                <mu>1.0</mu>
-                <mu2>1.0</mu2>
-                <fdir1>1 0 0</fdir1>
-              </ode>
-            </friction>
-            <contact>
-              <ode>
-                <kp>1e+12</kp>
-                <kd>1</kd>
-                <max_vel>10</max_vel>
-                <min_depth>0.003</min_depth>
-              </ode>
-            </contact>
-          </surface>
-        </collision>
-        <visual name="visual2">
-          <geometry>
-            <box>
-              <size>1.0 1.0 0.018</size>
-            </box>
-          </geometry>
-          <material>
-            <script>
-              <name>Gazebo/Green</name>
-            </script>
-          </material>
-        </visual>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.1 0.1 0.02</size>
-            </box>
-          </geometry>
-          <material>
-            <script>
-              <name>Gazebo/Red</name>
-            </script>
-          </material>
-        </visual>
-      </link>
-    </model>
 
 
     <!--model name="wamv"-->

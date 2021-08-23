@@ -5,7 +5,92 @@
       <uri>model://iris_with_standoffs</uri>
     </include>
 
+    <link name='imu'>
+      <pose>0 -0.01 0.070 1.57 0 1.57</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>0.001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.001</iyy>
+          <iyz>0</iyz>
+          <izz>0.001</izz>
+        </inertia>
+      </inertial>
+      <visual name='visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.025</radius>
+            <length>0.025</length>
+          </cylinder>
+        </geometry>
+          <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+      <!-- IMU sensor in 100fps -->
+      <sensor name='imu' type='imu'>
+      <always_on> 1 </always_on>
+      <update_rate> 100 </update_rate>
+      <pose> 0 0 0 0 0 0 </pose>
+      <plugin name='ros_imu' filename='libplugin_ros_imu.so'>
+      </plugin> 
+      <imu>
+        <noise>
+            <type>gaussian</type>
+          <rate>
+            <mean> 0 </mean>
+            <stddev> 0 </stddev>
+          </rate>
+          <accel>
+            <mean> 0 </mean>
+            <stddev> 0.00 </stddev>
+          </accel>
+        </noise>
+      </imu>
+ 
 
+        <plugin name='simple_drone' filename='libplugin_drone.so'>
+          <bodyName>iris::base_link</bodyName>
+          <imuTopic>/drone/imu</imuTopic>
+          <rollpitchProportionalGain>10.0</rollpitchProportionalGain>
+          <rollpitchDifferentialGain>5.0</rollpitchDifferentialGain>
+          <rollpitchLimit>0.5</rollpitchLimit>
+          <yawProportionalGain>2.0</yawProportionalGain>
+          <yawDifferentialGain>1.0</yawDifferentialGain>
+          <yawLimit>1.5</yawLimit>
+          <velocityXYProportionalGain>5.0</velocityXYProportionalGain>
+          <velocityXYDifferentialGain>2.3</velocityXYDifferentialGain>
+          <velocityXYLimit>2</velocityXYLimit>
+          <velocityZProportionalGain>5.0</velocityZProportionalGain>
+          <velocityZDifferentialGain>1.0</velocityZDifferentialGain>
+          <velocityZLimit>-1</velocityZLimit>
+          <positionXYProportionalGain>1.1</positionXYProportionalGain>
+          <positionXYDifferentialGain>0.0</positionXYDifferentialGain>
+          <positionXYIntegralGain>0.0</positionXYIntegralGain>
+          <positionXYLimit>5</positionXYLimit>
+          <positionZProportionalGain>1.0</positionZProportionalGain>
+          <positionZDifferentialGain>0.2</positionZDifferentialGain>
+          <positionZLimit>-1</positionZLimit>
+          <maxForce>30</maxForce>
+          <motionSmallNoise>0.05</motionSmallNoise>
+          <motionDriftNoise>0.03</motionDriftNoise>
+          <motionDriftNoiseTime>5.0</motionDriftNoiseTime>
+        </plugin>
+      </sensor>
+    </link>
+
+    <joint name="imu_joint" type="fixed">
+      <pose>0 0 0 0 0 0</pose>
+      <parent>iris::base_link</parent>
+      <child>imu</child>
+    </joint>
 <!--     <link name="cam_link">
       <pose>0 0 0 0 0 0 </pose>
       <inertial>
@@ -275,33 +360,7 @@
       <link_name>iris::rotor_3</link_name>
     </plugin>
 
-    <plugin name='simple_drone' filename='libplugin_drone.so'>
-        <bodyName>base_link</bodyName>
-        <imuTopic>/drone/imu</imuTopic>
-        <rollpitchProportionalGain>10.0</rollpitchProportionalGain>
-        <rollpitchDifferentialGain>5.0</rollpitchDifferentialGain>
-        <rollpitchLimit>0.5</rollpitchLimit>
-        <yawProportionalGain>2.0</yawProportionalGain>
-        <yawDifferentialGain>1.0</yawDifferentialGain>
-        <yawLimit>1.5</yawLimit>
-        <velocityXYProportionalGain>5.0</velocityXYProportionalGain>
-        <velocityXYDifferentialGain>2.3</velocityXYDifferentialGain>
-        <velocityXYLimit>2</velocityXYLimit>
-        <velocityZProportionalGain>5.0</velocityZProportionalGain>
-        <velocityZDifferentialGain>1.0</velocityZDifferentialGain>
-        <velocityZLimit>-1</velocityZLimit>
-        <positionXYProportionalGain>1.1</positionXYProportionalGain>
-        <positionXYDifferentialGain>0.0</positionXYDifferentialGain>
-        <positionXYIntegralGain>0.0</positionXYIntegralGain>
-        <positionXYLimit>5</positionXYLimit>
-        <positionZProportionalGain>1.0</positionZProportionalGain>
-        <positionZDifferentialGain>0.2</positionZDifferentialGain>
-        <positionZLimit>-1</positionZLimit>
-        <maxForce>30</maxForce>
-        <motionSmallNoise>0.05</motionSmallNoise>
-        <motionDriftNoise>0.03</motionDriftNoise>
-        <motionDriftNoiseTime>5.0</motionDriftNoiseTime>
-    </plugin>
+
 
 
 
