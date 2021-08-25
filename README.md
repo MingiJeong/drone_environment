@@ -38,7 +38,7 @@ make -j$(nproc) -l$(nproc)
 
 * __export plugin path__
 ```
-export SITL_GAZEBO_PATH=$HOME/src/sitl_gazebo
+export GAZEBO_PLUGIN_PATH=${GAZEBO_PLUGIN_PATH}:$HOME/src/sitl_gazebo/build
 ```
 
 __You can encounter some errors on docker while building it__:
